@@ -1,0 +1,94 @@
+{
+	"name": "todo-tree",
+	"displayName": "Todo-Tree",
+	"description": "a simple todo-list in a tree view",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.61.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": ["onView:todo"],
+	"main": "./out/extension.js",
+	"contributes": {
+		"views": {
+			"explorer": [
+				{
+					"id": "todo",
+					"name": "Todo List"
+				}
+			]
+		},
+		"commands" : [
+			{
+				"command": "todo-tree.complete-entry",
+				"title": "Complete Task",
+				"category": "Todo List",
+				"icon" : "$(pencil)"
+			},
+			{
+                "command": "todo-tree.refreshEntry",
+                "title": "Refresh",
+                "icon": "$(refresh)"
+            },
+			{
+				"command": "todo-tree.remove-entry",
+				"title": "Remove Entry",
+				"icon" : "$(trash)"
+			},
+			{
+				"command": "todo-tree.add-entry",
+				"title": "Add Entry",
+				"icon" : "$(add)"
+			}
+		],
+		"menus" : {
+			"view/item/context": [
+				{
+					"command": "todo-tree.complete-entry",
+					"when": "view == todo && viewItem == entry",
+					"group": "inline"
+				},
+				{
+					"command": "todo-tree.remove-entry",
+					"when": "view == todo",
+					"group": "inline"
+				},
+				{
+					"command": "todo-tree.add-entry",
+					"when": "view == todo && viewItem == group",
+					"group": "inline"
+				}
+			],
+			"view/title": [
+				{
+					"command": "todo-tree.add-entry",
+					"when": "view == todo",
+					"group": "navigation"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.61.0",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.2.2",
+		"@types/node": "14.x",
+		"eslint": "^7.27.0",
+		"@typescript-eslint/eslint-plugin": "^4.26.0",
+		"@typescript-eslint/parser": "^4.26.0",
+		"glob": "^7.1.7",
+		"mocha": "^8.4.0",
+		"typescript": "^4.3.2",
+		"vscode-test": "^1.5.2"
+	}
+}
